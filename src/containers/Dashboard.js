@@ -19,8 +19,7 @@ export const filteredBills = (data, status) => {
         // in prod environment
         const userEmail = JSON.parse(localStorage.getItem("user")).email
         selectCondition =
-          (bill.status === status) &&
-          ![...USERS_TEST, userEmail].includes(bill.email)
+          (bill.status === status) && ![...USERS_TEST, userEmail].includes(bill.email)
       }
 
       return selectCondition

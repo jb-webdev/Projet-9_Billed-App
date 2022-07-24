@@ -32,8 +32,8 @@ const getHeaders = (headers) => {
 
 class ApiEntity {
   constructor({key, api}) {
-    this.key = key;
-    this.api = api;
+    this.key = key
+    this.api = api
   }
   async select({selector, headers = {}}) {
     return await (this.api.get({url: `/${this.key}/${selector}`, headers: getHeaders(headers)}))

@@ -21,6 +21,9 @@ const row = (bill) => {
 
 const rows = (data) => {
   return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
+
+
+  
 }
 
 export default ({ data: bills, loading, error }) => {
