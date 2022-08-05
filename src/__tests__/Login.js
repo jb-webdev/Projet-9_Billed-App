@@ -47,7 +47,6 @@ describe("Given that I am a user on login page", () => {
       expect(screen.getByTestId("form-employee")).toBeTruthy()
     })
   })
-  // scerario 3
   // Lorsque je remplis les champs dans le bon format et que je clique sur le bouton de l'employé
   describe("When I do fill fields in correct format and I click on employee button Login In", () => {
     // Ensuite, je devrais être identifié en tant qu'employé dans l'application
@@ -213,6 +212,7 @@ describe("Given that I am a admin on login page", () => {
 
       const handleSubmit = jest.fn(login.handleSubmitAdmin)
       login.login = jest.fn().mockResolvedValue({})
+
       form.addEventListener("submit", handleSubmit)
       fireEvent.submit(form)
       expect(handleSubmit).toHaveBeenCalled()
