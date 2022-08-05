@@ -4,6 +4,9 @@ _Projet 9 - Billed - Juillet 2022_
 
 ![Screenshot](./docs/img/Scrennshot-README.png)
 
+## résultat des test en place
+![Screenshot](./docs/img/rapport-coverage-test-apres.png)
+![Screenshot](./docs/img/rapport-test-apres.png)
 
 ## Compétences évaluées  
 

@@ -56,11 +56,12 @@ export default class Login {
         document.body.style.backgroundColor = "#fff"
       })
   }
+  
 
   // not need to cover this function by tests
   login = (user) => {
     if (this.store) {
-      console.log(this.store)
+      //console.log(this.store)
       return this.store
         .login(JSON.stringify({
           email: user.email,
