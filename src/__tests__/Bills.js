@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+
 import '@testing-library/jest-dom'
 import {screen, waitFor, getByTestId} from "@testing-library/dom"
 import BillsUI from "../views/BillsUI.js"
@@ -46,23 +47,27 @@ describe("Given I am connected as an employee", () => {
       const datesSorted = dates.sort(antiChrono)
       expect(dates).toEqual(datesSorted)
     })
-    
-    test('Ensuite, le newBill btn devrait être présent',  async () => {
+    // Ensuite, le newBill btn devrait être présent
+    test('Then the newBill btn should be present',  async () => {
 			document.body.innerHTML = BillsUI({ data: bills })
 			let btnNewBill = getByTestId(document.body, 'btn-new-bill')
 			await waitFor(() => btnNewBill)
 			expect(btnNewBill).toBeInTheDocument()
 		})
-    test('Ensuite, la page de chargement doit être rendue', () => {
+    // Ensuite, la page de chargement doit être rendue
+    test('Then the loading page should be rendered', () => {
 			document.body.innerHTML = BillsUI({ loading: true })
 			expect(screen.getAllByText('Loading...')).toBeTruthy()
 		})
-    test('la page error doir être rendu', () => {
+    // la page error doir être rendu
+    test('the error page must be rendered', () => {
 			document.body.innerHTML = BillsUI({ error: 'oops an error' })
 			expect(screen.getAllByText('Erreur')).toBeTruthy()
 		})
-    describe("quand on clique sur le boutton New Bill", () => {
-      test("La page New bill doit apparaître", () => {
+    // quand on clique sur le boutton New Bill
+    describe("when you click on the New Bill button", () => {
+      // La page New bill doit apparaître
+      test("The New bill page should appear", () => {
         document.body.innerHTML = BillsUI({ data: bills })
           let newBills = new Bills({ document, onNavigate, store: null, localStorage: window.localStorage })
           newBills.handleClickNewBill = jest.fn()
@@ -71,8 +76,9 @@ describe("Given I am connected as an employee", () => {
           expect(newBills.handleClickNewBill).toBeCalled()
       })
     })
-    describe("quand on clique sur le boutton eye icon", () => {
-      test("La modal dit apparaître", () => {
+    // quand on clique sur le boutton eye icon
+    describe("when you click on the eye icon button", () => {
+      test("La modal doit apparaître", () => {
         document.body.innerHTML = BillsUI({ data: bills })
           let newBills = new Bills({ document, onNavigate, firestore: null, localStorage: window.localStorage })
           newBills.handleClickIconEye = jest.fn()
@@ -89,7 +95,8 @@ describe("Given I am connected as an employee", () => {
         expect(document.querySelector('.modal')).toBeTruthy()
       })
     })
-    describe('test d\'intégration GET', () => {
+    // test d\'intégration GET
+    describe('GET integration test', () => {
       
       test('fetches bills from mock API GET', async () => {
         const getSpyOn = jest.spyOn(mockStore, 'bills')
@@ -127,5 +134,6 @@ describe("Given I am connected as an employee", () => {
     })
   })
 })
+
 
 

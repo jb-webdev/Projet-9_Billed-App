@@ -32,23 +32,28 @@ Object.defineProperty(window, 'location', {
 
 
 describe("Given I am connected as an employee", () => {
-  describe("When I am on NewBill Page", () => {
-    test("la page newBill devrait être rendue", () => {
-      const html = NewBillUI()
-      document.body.innerHTML = html
-      //to-do write assertion
-      expect(
+	describe("When I am on NewBill Page", () => {
+		// la page newBill devrait être rendue
+		test("the newBill page should be rendered", () => {
+			const html = NewBillUI()
+			document.body.innerHTML = html
+			//to-do write assertion
+			expect(
 				screen.getAllByText('Envoyer une note de frais')
 			).toBeTruthy()
-    })
-    test('un formulaire avec neuf champs doit être rendu', () => {
+		})
+		// un formulaire avec neuf champs doit être rendu
+		test('a form with nine fields must be rendered', () => {
 			document.body.innerHTML = NewBillUI()
 			const form = document.querySelector('form')
 			expect(form.length).toEqual(9)
 		})
-  })
-  describe('Quand je suis sur la page NewBill', () => {
-		describe('et que je telecharge un fichier de type image', () => {
+	})
+	// Quand je suis sur la page NewBill
+	describe('When I\'m on the NewBill page', () => {
+		// et qu'ensuite je telecharge un fichier de type image
+		describe('and then I download an image type file', () => {
+			// Ensuite, le gestionnaire de fichiers devrait afficher un fichier
 			test('Then the file handler should show a file', () => {
 				document.body.innerHTML = NewBillUI()
 				const newBill = new NewBill({
@@ -62,7 +67,7 @@ describe("Given I am connected as an employee", () => {
 				)
 				const inputFile = screen.getByTestId('file')
 				inputFile.addEventListener('change', handleChangeFile)
-	
+
 				fireEvent.change(inputFile, {
 					target: {
 						files: [
@@ -79,7 +84,9 @@ describe("Given I am connected as an employee", () => {
 				expect(document.getElementById('error-message').textContent).toBe('')
 			})
 		})
-		describe('et je je telecharge un fichier qui n\'est pas une image', () => {
+		// et qu'ensuite je telecharge un fichier qui n'est pas une image
+		describe('and then I upload a file that is not an image', () => {
+			// Ensuite, le message d'erreur devrait s'afficher
 			test('Then the error message should be display', () => {
 				document.body.innerHTML = NewBillUI()
 				const newBill = new NewBill({
@@ -107,8 +114,10 @@ describe("Given I am connected as an employee", () => {
 				expect(document.getElementById('error-message').textContent).toBe('veuillez joindre un fichier valide de type jpg, jpeg, png !')
 			})
 		})
-		describe('Et que je soumets un formulaire de facture valide', () => {
-			test('puis une facture est créée', () => {
+		// Et que je soumets un formulaire de facture valide
+		describe('And that I submit a valid invoice form', () => {
+			// puis une facture est créée
+			test('then an invoice is created', () => {
 				document.body.innerHTML = NewBillUI()
 				const newBill = new NewBill({
 					document,
@@ -143,14 +152,17 @@ describe("Given I am connected as an employee", () => {
 			})
 		})
 	})
-	
+
 	// test d'intégration  de type POST
-	describe('Etant donné que je suis un utilisateur connecté en tant que Salarié', () => {
-		describe('Lorsque je remplis les champs requis dans le bon format et que je clique sur le bouton Soumettre', () => {
-			test('ensuite on simule une nouvelle facture vers API POST', async () => {
+	// Etant donné que je suis un utilisateur connecté en tant que Salarié
+	describe('Since I am a user logged in as an Employee', () => {
+		// Lorsque je remplis les champs requis dans le bon format et que je clique sur le bouton Soumettre
+		describe('When I fill in the required fields in the correct format and click the submit button', () => {
+			// ensuite on simule une nouvelle facture vers API POST
+			test('then we simulate a new invoice to API POST', async () => {
 				const html = NewBillUI()
-				document.body.innerHTML = html  
-			
+				document.body.innerHTML = html
+
 				const createdBill = new NewBill({
 					document,
 					onNavigate,
@@ -170,7 +182,7 @@ describe("Given I am connected as an employee", () => {
 					type: 'Transports',
 					email: 'a@a',
 					fileUrl:
-					'https://jyhad.jpg',
+						'https://jyhad.jpg',
 					date: '2022-08-05',
 					status: 'pending',
 					commentAdmin: 'euh',
@@ -178,18 +190,19 @@ describe("Given I am connected as an employee", () => {
 				const handleSubmit = jest.spyOn(createdBill, 'handleSubmit')
 				const form = screen.getByTestId('form-new-bill')
 				form.addEventListener('submit', handleSubmit)
-				fireEvent.submit(form)     
+				fireEvent.submit(form)
 				expect(handleSubmit).toHaveBeenCalled()
 
 				const getSpyOn = jest.spyOn(mockStore, 'bills')
-  
+
 				const billTested = await mockStore.bills().update(testBill)
 
-				expect(getSpyOn).toHaveBeenCalledTimes(1) 
+				expect(getSpyOn).toHaveBeenCalledTimes(1)
 				expect(billTested.id).toBe('47qAXb6fIm2zOKkLzMro')
 			})
 		})
-		describe('Lorsqu\'une erreur se produit sur API', () => {
+		// Lorsqu'une erreur se produit sur API
+		describe('When an error occurs on API', () => {
 			beforeEach(() => {
 				jest.spyOn(mockStore, 'bills')
 				Object.defineProperty(
@@ -205,18 +218,20 @@ describe("Given I am connected as an employee", () => {
 				root.setAttribute('id', 'root')
 				document.body.appendChild(root)
 				router()
-			}) 
-			test('erreur 404 lors de la recuperation des factures de l\'API', () => {
+			})
+			// erreur 404 lors de la recuperation des factures de l\'API
+			test('404 error when retrieving invoices from the API', () => {
 				mockStore.bills.mockImplementationOnce(() =>
-					Promise.reject(new Error('Erreur 500'))
+					Promise.reject(new Error('Erreur 404'))
 				)
-				const html = BillsUI({ error: 'Erreur 500' })
+				const html = BillsUI({ error: 'Erreur 404' })
 				document.body.innerHTML = html
-				const message = screen.getByText(/Erreur 500/)
+				const message = screen.getByText(/Erreur 404/)
 				expect(message).toBeTruthy()
 			})
-	
-			test('erreur 500 lors de la recuperation des factures de l\'API', () => {
+
+			// erreur 500 lors de la recuperation des factures de l'API
+			test('error 500 when retrieving invoices from the API', () => {
 				mockStore.bills.mockImplementationOnce(() =>
 					Promise.reject(new Error('Erreur 500'))
 				)
