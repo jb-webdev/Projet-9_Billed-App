@@ -65,7 +65,6 @@ export default class NewBill {
       stateIsTrue = false
     }
 
-
   }
   handleSubmit = e => {
     /** Avant l'envoie on verifie si stateIsTrue === true si il est a false on bloc l'envoie du fomulaire. */

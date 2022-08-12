@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+
 import '@testing-library/jest-dom'
 import LoginUI from "../views/LoginUI"
 import Login from "../containers/Login.js"
@@ -26,7 +27,7 @@ describe("Given that I am a user on login page", () => {
       expect(screen.getByTestId("form-employee")).toBeTruthy()
     })
   })
-  // Lorsque je remplis les champs dans mauvais format et que je clique sur le bouton de l'employé
+  // Lorsque je remplis les champs dans un mauvais format et que je clique sur le bouton de l'employé
   describe("When I do fill fields in incorrect format and I click on employee button Login In", () => {
     test("Then It should renders Login page", () => {
       document.body.innerHTML = LoginUI()
@@ -233,3 +234,4 @@ describe("Given that I am a admin on login page", () => {
     })
   })
 })
+
