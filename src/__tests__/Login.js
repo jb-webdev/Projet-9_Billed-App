@@ -1,14 +1,15 @@
 /**
  * @jest-environment jsdom
  */
-
 import '@testing-library/jest-dom'
 import LoginUI from "../views/LoginUI"
 import Login from "../containers/Login.js"
 import { ROUTES } from "../constants/routes"
 import { fireEvent, screen } from "@testing-library/dom"
 
+// Étant donné que je suis un utilisateur sur la page de connexion
 describe("Given that I am a user on login page", () => {
+  // Quand je ne remplis pas les champs et que je clique sur le bouton Employé Se connecter
   describe("When I do not fill fields and I click on employee button Login In", () => {
     test("Then It should renders Login page", () => {
       document.body.innerHTML = LoginUI()
@@ -200,9 +201,7 @@ describe("Given that I am a admin on login page", () => {
       }
 
       let PREVIOUS_LOCATION = ""
-
       const store = jest.fn()
-
       const login = new Login({
         document,
         localStorage: window.localStorage,
@@ -228,10 +227,8 @@ describe("Given that I am a admin on login page", () => {
         })
       )
     })
-
     test("It should renders HR dashboard page", () => {
       expect(screen.queryByText("Validations")).toBeTruthy()
     })
   })
 })
-
