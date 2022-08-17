@@ -13,6 +13,8 @@ import router from "../app/Router.js";
 import Bills from "../containers/Bills.js"
 import mockStore from "../__mocks__/store"
 
+import { filteredBills} from "../containers/Dashboard.js";
+
 // Je creer ma constante onNavigate pour gerer les routes
 const onNavigate = (pathname) => {
 	document.body.innerHTML = ROUTES({ pathname, data: bills })
@@ -20,6 +22,29 @@ const onNavigate = (pathname) => {
 
 
 describe("Given I am connected as an employee", () => {
+  describe('When I am on Bills page, there are bills, and there is one pending', () => {
+    test('Then, getBills by pending status should return 1 bill', () => {
+      const getAllBills = filteredBills(bills, "pending")
+      expect(getAllBills.length).toBe(1)
+    })
+  })
+  // Quand je suis sur la page Factures, il y a des factures, et il y en a une acceptée
+  describe('When I am on Bills page, there are bills, and there is one accepted', () => {
+    //Ensuite, getBills par statut accepté devrait renvoyer 1 facture
+    test('Then, getBills by accepted status should return 1 bill', () => {
+      const getAllBills = filteredBills(bills, "accepted")
+      expect(getAllBills.length).toBe(1)
+    })
+  })
+  // Quand je suis sur la page Factures, il y a des factures, et il y en a deux refusées
+  describe('When I am on Bills page, there are bills, and there is two refused', () => {
+    // Ensuite, getBills par statut accepté devrait renvoyer 2 factures
+    test('Then, getBills by accepted status should return 2 bills', () => {
+      const getAllBills = filteredBills(bills, "refused")
+      expect(getAllBills.length).toBe(2)
+    })
+  })
+  // Quand je suis sur la page Factures
   describe('When I am on Bills Page', () => {	
     test("Then bill icon in vertical layout should be highlighted", async () => {
 

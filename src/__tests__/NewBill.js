@@ -16,9 +16,9 @@ import router from '../app/Router.js'
 import store from '../__mocks__/store.js'
 import userEvent from '@testing-library/user-event'
 
-/*
+
 import { bills } from '../fixtures/bills.js'
-*/
+
 
 jest.mock('../app/Store', () => mockStore)
 
@@ -167,4 +167,5 @@ describe('Since I am a user logged in as an Employee', () => {
 			expect(messageRetour).toBeTruthy()
 		})
 	})
+	
 })
