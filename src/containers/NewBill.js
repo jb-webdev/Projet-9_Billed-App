@@ -32,7 +32,7 @@ export default class NewBill {
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     /** on recupere l'extension de l'element */
     const extensionFichier = file.name.split(".").pop();
-    console.log(extensionFichier)
+    //console.log(extensionFichier)
 
     if (extensionImageAttendue.includes(extensionFichier)){
 
